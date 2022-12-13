@@ -1,0 +1,19 @@
+name: CodeSniffer
+
+on: [push]
+jobs:
+  laravel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: instal php_codeSniffer
+        run: curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+            php phpcs.phar --version
+      - uses: ./
+        with:
+          files: "**.php"
+          phpcs_path: php phpcs.phar
+          standard: phpcs.xml
